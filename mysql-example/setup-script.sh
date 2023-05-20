@@ -28,7 +28,7 @@ curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/mysql-exampl
 oc create secret generic my-datasource --from-file=datasource.properties
 
 #curl the integration file
-curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/mysql-example/AccountDataRoute >AccountDataRoute.java
+curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/mysql-example/AccountDataRoute.java >AccountDataRoute.java
 
 #run the integration 
 # no need for --dev flag
