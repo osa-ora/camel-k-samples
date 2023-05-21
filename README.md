@@ -92,6 +92,10 @@ If you have completed the previous steps then you are ready to deploy the integr
 kamel run --dev hello.camelk.yaml
 or
 kamel run --dev MyRestRoute.java
+or even use the Git URL (the complete or short one)
+run https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/java-samples/MyRestRoute.java
+or
+kamel run github:osa-ora/camel-k-samples/java-samples/MyRestRoute.java 
 ```
 To run withut the dev mode, simply remove it:
 ```
