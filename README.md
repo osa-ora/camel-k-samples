@@ -1,4 +1,4 @@
-# camel-k-samples
+# Camel-k Samples
 
 Camel K is a lightweight integration framework built from Apache Camel that runs natively on Kubernetes and is specifically designed for serverless and microservice architectures.
 
@@ -121,14 +121,41 @@ In this command, we used build property, depdendencies and secret.
 To update the integration, simply modify the code, re-run the run command and the integration will be updated automatically.
 
 ### Scale the Integration (Manual or Autoscaling)
-You can either scale it from the GUI or from the command line using:
+You can easily scale the integration from the command line using:
+```
+oc scale it account-data-route --replicas 2
+```
+Or you can deploy the integration using Knative for auto-scaling feature which is very useful in that case.
 
 
 ### Get The Integration Logs
 Using the logs flag as we discussed before.
-
+```
+kamel logs account-data-route
+```
 ### Monitor the Integration
-TBC
+First you need to enable custom monioring of user workload on Promethus using the following steps:
+```
+oc -n openshift-monitoring get configmap cluster-monitoring-config  
+if not exist, create one using: 
+oc -n openshift-monitoring create configmap cluster-monitoring-config
+
+Edit the file to enable user workload monitoring in the data section:
+
+oc -n openshift-monitoring edit configmap cluster-monitoring-config
+
+data:
+  config.yaml: |
+    enableUserWorkload: true
+```
+Now, when you run the integration you can enable the monitoring for it using "-t prometheus.enabled=true" or globally for all the integrations:
+```
+kamel run AccountDataRoute.java --build-property quarkus.datasource.camel.db-kind=mysql -d mvn:io.quarkus:quarkus-jdbc-mysql  --config secret:my-datasource --dependency camel-jdbc -t prometheus.enabled=true
+```
+Now you can monittor the custom metrics for your integration:
+
+<img width="1476" alt="Screenshot 2023-05-21 at 11 59 32" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/6951d4c9-9094-49a1-98ac-b600af77c6be">
+
 
 ### Delete the Integration
 By simply executing the delete flag:
