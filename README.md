@@ -156,9 +156,11 @@ Now, when you run the integration you can enable the monitoring for it using "-t
 ```
 kamel run AccountDataRoute.java --build-property quarkus.datasource.camel.db-kind=mysql -d mvn:io.quarkus:quarkus-jdbc-mysql  --config secret:my-datasource --dependency camel-jdbc -t prometheus.enabled=true
 ```
-Now you can monittor the custom metrics for your integration:
+Now you can monittor the metrics for your integration:
 
 <img width="1476" alt="Screenshot 2023-05-21 at 11 59 32" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/6951d4c9-9094-49a1-98ac-b600af77c6be">
+
+Also you can define custom metrics inside your integration and monitor them as well using microprofile.metrics.    
 
 
 ### Delete the Integration
@@ -166,4 +168,17 @@ By simply executing the delete flag:
 ```
 Kamel delete account-data-route
 ```
+
+### Setup the MySQL-REST Example
+By simply run the following commands:
+```
+curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/mysql-example/setup-script.sh > setup-script.sh
+chmod +x setup-script.sh
+./setup-script.sh camel-project
+```
+Where camel-project is the OpenShift project name where all the deployment artifacts will happen.
+The script will also do some curl commands to test the deployment artifacts.
+
+
+There is a lot of other Camel K examples here: https://github.com/apache/camel-k-examples
 
