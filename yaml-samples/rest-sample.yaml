@@ -1,0 +1,12 @@
+# camel-k: language=yaml
+
+# Write your routes here, for example:
+- from:
+    uri: "rest:get:/api/greeting/{name}"
+    steps:
+      - setHeader:
+          constant: application/json
+          name: Content-Type
+      - setBody:
+          simple: '{"greeting": "Hello ${header.name}!"}'
+      - to: 'log:info'
