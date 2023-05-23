@@ -32,7 +32,7 @@ curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/mysql-exampl
 
 #run the integration 
 # no need for --dev flag
-kamel run AccountDataRoute.java --build-property quarkus.datasource.camel.db-kind=mysql -d mvn:io.quarkus:quarkus-jdbc-mysql  --config secret:my-datasource --dependency camel-jdbc
+kamel run AccountDataRoute.java --build-property quarkus.datasource.camel.db-kind=mysql -d mvn:io.quarkus:quarkus-jdbc-mysql  --config secret:my-datasource --dependency camel-jdbc -t prometheus.enabled=true 
 
 echo "Press [Enter] key to do some testing once the integration deployed successfully ..." 
 read
