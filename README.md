@@ -1,6 +1,7 @@
 # Camel-k Samples
 
 Camel K is a lightweight integration framework built from Apache Camel that runs natively on Kubernetes and is specifically designed for serverless and microservice architectures.
+Quarkus serves as the runtime framework for Camel K, providing lightweight, fast, and cloud-native capabilities that enable the efficient development and deployment of Apache Camel integrations
 
 <img width="206" alt="Screenshot 2023-05-20 at 23 44 50" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/20bf6b5c-b86d-45db-9f66-f2325300e295">
 
@@ -168,6 +169,20 @@ By simply executing the delete flag:
 ```
 Kamel delete account-data-route
 ```
+
+### Building Native Integration
+As Quarkus is also allow for native compilation, we can deploy it as a native deployment which has the best efficient memory and CPU utilization and fast start up time, but compiling the integration for native will take time, thankfully Camel K allow for building the integration quickly as Java deployment and behind the scene is doing the native compilation, once the native integration is ready it will seamlessly replace the Java with the native pod:
+```
+kamel run github:osa-ora/camel-k-samples/yaml-samples/rest-sample.yaml -t quarkus.package-type=fast-jar -t quarkus.package-type=native
+```
+As we can see in the pod metrics, the memory and cpu utilization is much more lower in the native one.
+Traditional Java Quarkus:
+<img width="1489" alt="Screenshot 2023-05-24 at 12 05 20" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/0893d928-ebe5-4df8-a748-4e148d84df2a">
+
+
+Native Quarkus:
+<img width="1477" alt="Screenshot 2023-05-24 at 12 12 35" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/d3afb28c-d84e-471c-ad58-1d27e8aa9df5">
+
 
 ### Setup the MySQL-REST Example
 By simply run the following commands:
