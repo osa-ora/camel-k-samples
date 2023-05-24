@@ -1,0 +1,24 @@
+apiVersion: camel.apache.org/v1
+kind: Integration
+metadata:
+  annotations:
+    camel.apache.org/operator.id: camel-k
+  name: rest-sample
+spec:
+  flows:
+    - from:
+        steps:
+          - setHeader:
+              constant: application/json
+              name: Content-Type
+          - setBody:
+              simple: '{"greeting": "Hello ${header.name}!"}'
+          - to: 'log:info'
+        uri: 'rest:get:/api/greeting/{name}'
+  traits:
+    prometheus:
+      enabled: true
+    quarkus:
+      packageTypes:
+        - fast-jar
+        - native
