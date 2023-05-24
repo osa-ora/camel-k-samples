@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: sample
+  name: sample-rest-app
 spec:
   destination:
     namespace: test
