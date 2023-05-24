@@ -183,6 +183,18 @@ Traditional Java Quarkus:
 Native Quarkus:
 <img width="1477" alt="Screenshot 2023-05-24 at 12 12 35" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/d3afb28c-d84e-471c-ad58-1d27e8aa9df5">
 
+### Using GitOps for Integration
+First make sure the GitOps operator is already installed, then execute the following commands:
+```
+oc project test
+oc policy add-role-to-user edit system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller -n test
+curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/yaml-samples/gitops-app.yaml > gitops-app.yaml
+oc apply -f gitops-app.yaml -n openshift-gitops
+```
+So, once you finished the integration development and testing, you can then propagate it to other environments by using GitOps.
+
+<img width="1016" alt="Screenshot 2023-05-24 at 15 28 52" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/8c951c52-8180-41d2-aa27-ba8e85b7f5d3">
+
 
 ### Setup the MySQL-REST Example
 By simply run the following commands:
