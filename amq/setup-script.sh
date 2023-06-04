@@ -20,13 +20,22 @@ curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/jms-conf
 oc create configmap my-jms-config --from-file=jms-config.properties
 
 #curl the integration file
-curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/RestToJMSRoute.java >RestToJMSRoute.java
-curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/JMSToLogRoute.java >JMSToLogRoute.java
+
+# Dependency need to be explicitly mention in kamel command using -d or --dependency
+#curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/RestToJMSRoute.java >RestToJMSRoute.java
+#curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/JMSToLogRoute.java >JMSToLogRoute.java
+
+# Dependency already added to the source file and no need for any flag for kamel command
+curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/modified/RestToJMSRoute.java >RestToJMSRoute.java
+curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/modified/JMSToLogRoute.java >JMSToLogRoute.java
 
 #run the integration 
 # no need for --dev flag
-kamel run --config configmap:my-jms-config -d mvn:org.amqphub.quarkus:quarkus-qpid-jms RestToJMSRoute.java
-kamel run --config configmap:my-jms-config -d mvn:org.amqphub.quarkus:quarkus-qpid-jms JMSToLogRoute.java
+#kamel run --config configmap:my-jms-config -d mvn:org.amqphub.quarkus:quarkus-qpid-jms RestToJMSRoute.java
+#kamel run --config configmap:my-jms-config -d mvn:org.amqphub.quarkus:quarkus-qpid-jms JMSToLogRoute.java
+
+kamel run --config configmap:my-jms-config RestToJMSRoute.java
+kamel run --config configmap:my-jms-config JMSToLogRoute.java
 
 echo "Press [Enter] key to do some testing once the integration deployed successfully ..." 
 read
