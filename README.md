@@ -206,6 +206,35 @@ chmod +x setup-script.sh
 Where camel-project is the OpenShift project name where all the deployment artifacts will happen.
 The script will also do some curl commands to test the deployment artifacts.
 
+### Setup the Red Hat AMQ JMS Example
+
+First, you need to make sure Red Hat Camel K Operator and Red Hat AMQ Broker Operator is installed in OpenShift cluster.
+
+<img width="568" alt="Screenshot 2023-06-04 at 15 57 15" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/e5a654ea-9c67-4001-a50c-59501440da21">
+
+By simply run the following commands:
+```
+curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/setup-script.sh > jms-setup-script.sh
+chmod +x jms-setup-script.sh
+./jms-setup-script.sh jms-project
+```
+Where camel-project is the OpenShift project name where all the deployment artifacts will happen.
+The script will also do some curl commands to test the deployment artifacts.
+One integration is exposing a REST interface to send messages and the other one is listening to the messqgq queue to get the messages and log them.
+
+In that example, you can see 2 types of configuring the depedencies either by explicit using of -d or --dependency flag as in our previous MySQL example or by adding the depdendency in the file itself:
+```
+// camel-k: language=java
+// camel-k: dependency=mvn:org.amqphub.quarkus:quarkus-qpid-jms 
+import org.apache.camel.builder.RouteBuilder;
+
+public class JMSToLogRoute extends RouteBuilder {
+ ...
+}
+```
+This is easier way to maintain everything inside a single code snippet file.
+You can add a new line for every dependency.
+
 
 There is a lot of other Camel K examples here: https://github.com/apache/camel-k-examples
 
