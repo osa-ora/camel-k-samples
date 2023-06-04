@@ -17,7 +17,7 @@ oc apply -f https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/m
 curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/jms-config.properties >jms-config.properties
 
 #create secret
-oc create secret generic jms-config --from-file=jms-config.properties
+oc create configmap jms-config --from-file=jms-config.properties
 
 #curl the integration file
 curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/RestToJMSRoute.java >RestToJMSRoute.java
