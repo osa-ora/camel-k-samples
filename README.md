@@ -212,7 +212,7 @@ The script will also do some curl commands to test the deployment artifacts.
 
 ### Setup the Red Hat AMQ JMS Example
 
-First, you need to make sure Red Hat Camel K Operator and Red Hat AMQ Broker Operator is installed in OpenShift cluster.
+First, you need to make sure Red Hat Camel K Operator and Red Hat AMQ Broker Operator are installed in OpenShift cluster.
 
 <img width="568" alt="Screenshot 2023-06-04 at 15 57 15" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/e5a654ea-9c67-4001-a50c-59501440da21">
 
