@@ -8,8 +8,11 @@ Quarkus serves as the runtime framework for Camel K, providing lightweight, fast
 ## Setup the Environment
 - Make sure you have a ready OpenShift cluster
 - Setup Camel-K Red Hat Operator
-- Download Kamel command line
-- Make sure you have oc command line installed
+- Download "kamel" command line
+- Make sure you have "oc" command line installed
+
+<img width="269" alt="Screenshot 2023-06-06 at 10 02 07" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/2cebcf80-0cd6-467d-9398-f2f0b6fd5c40">
+
 
 The magic of Camel-K is that you write using DSL either code or YAML file and the platform will do the remaining for you, so let's see some scenarios for our usual operations:
 
@@ -201,6 +204,7 @@ By simply run the following commands:
 ```
 curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/mysql-example/setup-script.sh > setup-script.sh
 chmod +x setup-script.sh
+
 ./setup-script.sh camel-project
 ```
 Where camel-project is the OpenShift project name where all the deployment artifacts will happen.
@@ -212,17 +216,40 @@ First, you need to make sure Red Hat Camel K Operator and Red Hat AMQ Broker Ope
 
 <img width="568" alt="Screenshot 2023-06-04 at 15 57 15" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/e5a654ea-9c67-4001-a50c-59501440da21">
 
-By simply run the following commands:
+To send to the JMS we have a configurations for the JMS Broker and one line to do this:
+```
+.to("jms:{{jms.destinationType}}:{{jms.destinationName}}?exchangePattern=InOnly")
+```
+And to listen to messages from that broker, we need also another line with the same configurations:
+```
+from("jms:{{jms.destinationType}}:{{jms.destinationName}}")
+```
+The configurations will be seeded to a configMap using:
+```
+oc create configmap my-jms-config --from-file=jms-config.properties
+```
+And it contains the following details:
+```
+# Use AMQ Kubernetes service name or IP address and port
+quarkus.qpid-jms.url=amqp://my-amq-amqp-0-svc:5672
+# Use either queue or topic
+jms.destinationType=queue
+# Queue or Topic name
+jms.destinationName=my-messages
+```
+
+To install the full demo by a single script, simply run the following commands:
 ```
 curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/setup-script.sh > jms-setup-script.sh
 chmod +x jms-setup-script.sh
+
 ./jms-setup-script.sh jms-project
 ```
-Where camel-project is the OpenShift project name where all the deployment artifacts will happen.
+Where camel-project is the name of OpenShift project where all the deployment artifacts will happen.
 The script will also do some curl commands to test the deployment artifacts.
 One integration is exposing a REST interface to send messages and the other one is listening to the messqgq queue to get the messages and log them.
 
-In that example, you can see 2 types of configuring the depedencies either by explicit using of -d or --dependency flag as in our previous MySQL example or by adding the depdendency in the file itself:
+In that example, you can see 2 types of configuring the depedencies either by explicit using of -d or --dependency flag as in our previous MySQL example or by adding the depdendency in the route snippet file itself:
 ```
 // camel-k: language=java
 // camel-k: dependency=mvn:org.amqphub.quarkus:quarkus-qpid-jms 
