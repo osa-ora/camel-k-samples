@@ -123,7 +123,7 @@ In our MySQL example, we need to add some depedencies for the MySQL JDBC using -
 ```
 kamel run AccountDataRoute.java --build-property quarkus.datasource.camel.db-kind=mysql -d mvn:io.quarkus:quarkus-jdbc-mysql  --config secret:my-datasource --dependency camel-jdbc
 ```
-In this command, we used build property, depdendencies and secret.
+In this command, we used build property, depdendencies and secret. Later on, we will see a different way to specify dependencies within the same integration file snippet.
 
 ### Update the Integration
 To update the integration, simply modify the code, re-run the run command and the integration will be updated automatically.
