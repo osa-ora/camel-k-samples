@@ -9,17 +9,18 @@ echo "Make sure Openshift Camel K  Operator is installed"
 echo "Make sure Red Hat AMQ Broker Operator is installed"
 echo "Make sure oc command is available"
 read
-
+# Create a new project
 oc new-project $1
+# Provision AMQ using object details
 oc apply -f https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/my-amq-broker.yaml
 
-#curl jms properties
+# Download jms properties
 curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/jms-config.properties >jms-config.properties
 
-#create secret
+# Create configMap
 oc create configmap my-jms-config --from-file=jms-config.properties
 
-#curl the integration file
+# Download the integration file
 
 # Dependency need to be explicitly mention in kamel command using -d or --dependency
 #curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/RestToJMSRoute.java >RestToJMSRoute.java
@@ -29,7 +30,7 @@ oc create configmap my-jms-config --from-file=jms-config.properties
 curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/modified/RestToJMSRoute.java >RestToJMSRoute.java
 curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/modified/JMSToLogRoute.java >JMSToLogRoute.java
 
-#run the integration 
+# Run the integration 
 # no need for --dev flag
 #kamel run --config configmap:my-jms-config -d mvn:org.amqphub.quarkus:quarkus-qpid-jms RestToJMSRoute.java
 #kamel run --config configmap:my-jms-config -d mvn:org.amqphub.quarkus:quarkus-qpid-jms JMSToLogRoute.java
