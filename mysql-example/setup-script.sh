@@ -41,7 +41,7 @@ echo "Press [Enter] key to do some testing once the integration deployed success
 read
 
 # Group all resourcs
-oc label deployment/mysql app.kubernetes.io/part-of=my-jdbc-demo
+oc label deploymentconfig/mysql app.kubernetes.io/part-of=my-jdbc-demo
 oc label deployment/account-data-route app.kubernetes.io/part-of=my-jdbc-demo
 
 # Run some curl commands for testing
