@@ -210,6 +210,9 @@ chmod +x setup-script.sh
 Where camel-project is the OpenShift project name where all the deployment artifacts will happen.
 The script will also do some curl commands to test the deployment artifacts.
 
+<img width="592" alt="Screenshot 2023-06-07 at 15 40 54" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/a447b011-7a5b-42b0-92ec-8a5d88e78c86">
+
+
 ### Setup the Red Hat AMQ JMS Example
 
 First, you need to make sure Red Hat Camel K Operator and Red Hat AMQ Broker Operator are installed in OpenShift cluster.
