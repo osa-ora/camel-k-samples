@@ -249,6 +249,8 @@ Where camel-project is the name of OpenShift project where all the deployment ar
 The script will also do some curl commands to test the deployment artifacts.
 One integration is exposing a REST interface to send messages and the other one is listening to the messqgq queue to get the messages and log them.
 
+<img width="924" alt="Screenshot 2023-06-07 at 15 29 57" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/d706eb8d-6ac6-4400-a663-3c481a266d09">
+
 In that example, you can see 2 types of configuring the depedencies either by explicit using of -d or --dependency flag as in our previous MySQL example or by adding the depdendency in the route snippet file itself:
 ```
 // camel-k: language=java
