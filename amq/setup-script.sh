@@ -41,6 +41,10 @@ kamel run --config configmap:my-jms-config JMSToLogRoute.java
 echo "Press [Enter] key to do some testing once the integration deployed successfully ..." 
 read
 
+# Group all resourcs
+oc label deployment/jms-to-log-route app.kubernetes.io/part-of=my-amq-demo
+oc label deployment/rest-to-jms-route app.kubernetes.io/part-of=my-amq-demo
+
 #do some curl commands for testing
 curl $(oc get route rest-to-jms-route -o jsonpath='{.spec.host}')/send/Hello-from-osa-ora
 curl $(oc get route rest-to-jms-route -o jsonpath='{.spec.host}')/send/Hello-from-osa-ora2
