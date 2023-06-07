@@ -3,7 +3,6 @@ kind: ActiveMQArtemis
 metadata:
   name: my-amq
   labels:
-    ActiveMQArtemis: my-amq
     application: my-amq-demo
     app.kubernetes.io/part-of: my-amq-demo
 spec:
