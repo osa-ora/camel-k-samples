@@ -2,6 +2,10 @@ apiVersion: broker.amq.io/v1beta1
 kind: ActiveMQArtemis
 metadata:
   name: my-amq
+  labels:
+    ActiveMQArtemis: my-amq
+    application: my-amq-app
+    app.kubernetes.io/part-of: my-amq-demo
 spec:
   acceptors:
     - expose: true
