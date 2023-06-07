@@ -40,6 +40,10 @@ kamel run AccountDataRoute.java --build-property quarkus.datasource.camel.db-kin
 echo "Press [Enter] key to do some testing once the integration deployed successfully ..." 
 read
 
+# Group all resourcs
+oc label deployment/mysql app.kubernetes.io/part-of=my-jdbc-demo
+oc label deployment/account-data-route app.kubernetes.io/part-of=my-jdbc-demo
+
 # Run some curl commands for testing
 curl $(oc get route account-data-route -o jsonpath='{.spec.host}')/users/1
 curl $(oc get route account-data-route -o jsonpath='{.spec.host}')/users/2
