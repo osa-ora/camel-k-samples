@@ -6,6 +6,8 @@ metadata:
     application: my-amq-demo
     app.kubernetes.io/part-of: my-amq-demo
 spec:
+  adminUser: admin
+  adminPassword: adminPass
   acceptors:
     - expose: true
       name: amqp
