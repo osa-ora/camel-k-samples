@@ -18,8 +18,9 @@ The magic of Camel-K is that you write using DSL either code or YAML file and th
 
 <img width="1066" alt="Screenshot 2023-05-20 at 23 43 47" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/1947380c-72b9-46c2-9b14-718ec47d59e5">
 
-
-### Build the Integration
+## Using Camel K
+***
+### Building the Integration
 As we have mentioned before you can use DSL, for example we can use YAML file format as the following simple example:
 ```
  - from:
@@ -76,7 +77,7 @@ from("direct:getUserAccount")
     .convertBodyTo(String.class) // Convert the response body to a string
     .log("User account details: ${body}");
 ```
-### Use Runtime Configurations
+### Using Runtime Configurations
 If our integration needs some configurations, we can use either a configmap or a secret for that.
 So for example in our Database example, we are defining a secret for the MySQL datasource configurations:
 ```
@@ -90,7 +91,7 @@ We grouped them in the file: datasource.properties which is then used to create 
 oc create secret generic my-datasource --from-file=datasource.properties
 ```
 
-### Deploy the Integration for Dev Mode & Prod Mode
+### Deploying the Integration for Dev Mode & Prod Mode
 If you have completed the previous steps then you are ready to deploy the integration, the integration can be simply deployed using Kamel command line:
 ```
 kamel run --dev hello.camelk.yaml
@@ -107,7 +108,7 @@ kamel run hello.camelk.yaml
 or
 kamel run MyRestRoute.java
 ```
-### Check the Integrations Status
+### Checking the Integrations Status
 You can run the get command to list the deployed integrations and you can run the logs command to get the specific integration logs, but in Dev Mode you don't need to get the logs as it will be available in the console.  
 ```
 kamel get // will return all the integration in the current namespace
@@ -126,10 +127,10 @@ kamel run AccountDataRoute.java --build-property quarkus.datasource.camel.db-kin
 ```
 In this command, we used build property, depdendencies and secret. Later on, we will see a different way to specify dependencies within the same integration file snippet.
 
-### Update the Integration
+### Updating the Integration
 To update the integration, simply modify the code, re-run the run command and the integration will be updated automatically.
 
-### Scale the Integration (Manual or Autoscaling)
+### Scaling the Integration (Manual or Autoscaling)
 You can easily scale the integration from the command line using:
 ```
 oc scale it account-data-route --replicas 2
@@ -137,12 +138,12 @@ oc scale it account-data-route --replicas 2
 Or you can deploy the integration using Knative for auto-scaling feature which is very useful in that case.
 
 
-### Get The Integration Logs
+### Getting the Integration Logs
 Using the logs flag as we discussed before.
 ```
 kamel logs account-data-route
 ```
-### Monitor the Integration
+### Monitoring the Integration
 First you need to enable custom monioring of user workload on Promethus using the following steps:
 ```
 oc -n openshift-monitoring get configmap cluster-monitoring-config  
@@ -168,13 +169,13 @@ Now you can monitor the metrices for your integration:
 Also you can define a custom metrics inside your integration and monitor them as well by using microprofile.metrics.    
 
 
-### Delete the Integration
+### Deleting the Integration
 By simply executing the delete flag:
 ```
 Kamel delete account-data-route
 ```
 
-### Building Native Integration
+### Building Quarkus Native Integration
 As Quarkus is also allow for native compilation, we can deploy it as a native deployment which has the best efficient memory and CPU utilization and fast start up time, but compiling the integration for native will take a longer time, thankfully Camel K allow for building the integration quickly as Java deployment and behind the scene is doing the native compilation, once the native integration is ready it will seamlessly replace the Java version with the native pod:
 ```
 kamel run github:osa-ora/camel-k-samples/yaml-samples/rest-sample.yaml -t quarkus.package-type=fast-jar -t quarkus.package-type=native
@@ -200,7 +201,10 @@ So, once you finished the integration development and testing, you can then prop
 <img width="1016" alt="Screenshot 2023-05-24 at 15 28 52" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/8c951c52-8180-41d2-aa27-ba8e85b7f5d3">
 
 
-### Setup the MySQL-REST Example
+## Some Use Cases
+***
+### 1) Setup the MySQL-REST Example
+
 By simply run the following commands:
 ```
 curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/mysql-example/setup-script.sh > setup-script.sh
@@ -214,7 +218,7 @@ The script will also do some curl commands to test the deployment artifacts.
 <img width="592" alt="Screenshot 2023-06-07 at 15 40 54" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/a447b011-7a5b-42b0-92ec-8a5d88e78c86">
 
 
-### Setup the Red Hat AMQ JMS Example
+### 2) Setup the Red Hat AMQ JMS Example
 
 First, you need to make sure Red Hat Camel K Operator and Red Hat AMQ Broker Operator are installed in OpenShift cluster.
 
@@ -267,7 +271,7 @@ public class JMSToLogRoute extends RouteBuilder {
 ```
 This is an easier way to maintain everything inside a single code snippet file.
 
-### Setup the Red Hat AMQ Streams (Kafka) Example
+### 3) Setup the Red Hat AMQ Streams (Kafka) Example
 
 First, you need to make sure Red Hat Camel K Operator and Red Hat AMQ Streams (Kafka) Operator are installed in OpenShift cluster.
 
@@ -302,9 +306,11 @@ chmod +x kafka-setup-script.sh
 <img width="663" alt="Screenshot 2023-06-10 at 14 36 04" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/04701dbd-08e9-403f-a3fe-5695f5f2d85c">
 
 ## Design the Integrations
+***
 You can use different tools or examples that are available already everywhere, you can use ChatGPT for example, or you can use KAOTO design tool to design the integration flow either as a standalone or part of Visual Studio Code by installing the plugin.
 
 <img width="1772" alt="Screenshot 2023-06-10 at 19 14 09" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/bf142a5d-7634-4287-904d-f75296f2b95b">
+
 
 There is a lot of other Camel K examples here: https://github.com/apache/camel-k-examples
 
