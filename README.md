@@ -301,7 +301,10 @@ chmod +x kafka-setup-script.sh
 ```
 <img width="663" alt="Screenshot 2023-06-10 at 14 36 04" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/04701dbd-08e9-403f-a3fe-5695f5f2d85c">
 
+## Design the Integrations
+You can use different tools or examples that are available already everywhere, you can use ChatGPT for example, or you can use KAOTO design tool to design the integration flow either as a standalone or part of Visual Studio Code by installing the plugin.
 
+<img width="1772" alt="Screenshot 2023-06-10 at 19 14 09" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/bf142a5d-7634-4287-904d-f75296f2b95b">
 
 There is a lot of other Camel K examples here: https://github.com/apache/camel-k-examples
 
