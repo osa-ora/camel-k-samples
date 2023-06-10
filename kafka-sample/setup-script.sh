@@ -45,7 +45,7 @@ oc label deployment/kafka-producer  app.kubernetes.io/part-of=my-kafka-demo
 curl $(oc get route kafka-producer -o jsonpath='{.spec.host}')/send/Hello-from-osa-ora
 curl $(oc get route kafka-producer -o jsonpath='{.spec.host}')/send/Hello-from-osa-ora2
 curl $(oc get route kafka-producer -o jsonpath='{.spec.host}')/send/Hello-from-osa-ora3
-time curl -s $(oc get route kafka-producer -o jsonpath='{.spec.host}')/send/Hello-from-Osama-Oransa{1-3}?[1-50]
+time curl -s $(oc get route kafka-producer -o jsonpath='{.spec.host}')/send/Hello-from-Osama-Oransa?[1-50]
 
 kamel logs kafka-consumer
 echo "Congratulations, we are done!"
