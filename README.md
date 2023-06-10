@@ -244,7 +244,7 @@ jms.destinationName=my-messages
 
 To install the full demo by a single script, simply run the following commands:
 ```
-curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq/setup-script.sh > jms-setup-script.sh
+curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/amq-example/setup-script.sh > jms-setup-script.sh
 chmod +x jms-setup-script.sh
 
 ./jms-setup-script.sh jms-project
