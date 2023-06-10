@@ -267,6 +267,41 @@ public class JMSToLogRoute extends RouteBuilder {
 ```
 This is an easier way to maintain everything inside a single code snippet file.
 
+### Setup the Red Hat AMQ Streams (Kafka) Example
+
+First, you need to make sure Red Hat Camel K Operator and Red Hat AMQ Streams (Kafka) Operator are installed in OpenShift cluster.
+
+<img width="278" alt="Screenshot 2023-06-10 at 14 31 45" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/0ca3c2f3-72b7-490d-a348-c1bcd520618d">
+
+We hava a single configurations for the producer and consumer, this can be changed as per your requirements, also we didn't use any authentication for sending/recieving the messages.
+We configured the bootstrap URL:Port and topic name for that.
+```
+# Bootstrap url:port, In this example we used the non-secure port
+camel.component.kafka.brokers=my-kafka-cluster-kafka-bootstrap:9092
+# Consumer topic name (to listen for messages)
+consumer.topic=test-topic
+# Producer topic name (to send messages to)
+producer.topic=test-topic
+```
+
+To send messages:
+```
+.to("kafka:{{producer.topic}}")
+```
+To consume messages:
+```
+from("kafka:{{consumer.topic}}")
+```
+To install the full demo by a single script, simply run the following commands:
+```
+curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/kafka-sample/setup-script.sh > kafka-setup-script.sh
+chmod +x kafka-setup-script.sh
+
+./kafka-setup-script.sh kafka-project
+```
+<img width="663" alt="Screenshot 2023-06-10 at 14 36 04" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/04701dbd-08e9-403f-a3fe-5695f5f2d85c">
+
+
 
 There is a lot of other Camel K examples here: https://github.com/apache/camel-k-examples
 
