@@ -1,0 +1,26 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemis
+metadata:
+  name: my-amq
+  labels:
+    application: my-amq-demo
+    app.kubernetes.io/part-of: my-amq-demo
+spec:
+  adminUser: admin
+  adminPassword: adminPass
+  acceptors:
+    - expose: true
+      name: amqp
+      port: 5672
+      protocols: amqp
+  console:
+    expose: true
+  deploymentPlan:
+    image: placeholder
+    jolokiaAgentEnabled: false
+    journalType: nio
+    managementRBACEnabled: true
+    messageMigration: false
+    persistenceEnabled: false
+    requireLogin: false
+    size: 1
