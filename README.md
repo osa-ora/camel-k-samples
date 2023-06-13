@@ -270,6 +270,10 @@ public class JMSToLogRoute extends RouteBuilder {
 }
 ```
 This is an easier way to maintain everything inside a single code snippet file.
+We can also add traits to the file:
+```
+// camel-k: language=java trait=prometheus.enabled=true 
+```
 
 ### 3) Setup the Red Hat AMQ Streams (Kafka) Example
 
