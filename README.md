@@ -77,6 +77,41 @@ from("direct:getUserAccount")
     .convertBodyTo(String.class) // Convert the response body to a string
     .log("User account details: ${body}");
 ```
+We can also define custom bean for any custom logic in the processing:
+```
+public class RestCustomBeanRoute extends RouteBuilder {
+
+    @Override
+    public void configure() throws Exception {
+
+        // Define the REST API endpoint
+        rest("/api")
+            .get("/user/{id}")
+                .to("direct:userRoute");
+
+        // Define the route that handles the parameter and generates the response
+        from("direct:userRoute")
+            .log("Received request with user ID: ${header.id}")
+            .setHeader("Content-Type", constant("application/json"))
+            .bean(UserServiceBean.class, "getUser")
+            .log("Response: ${body}");
+    }
+    public static class UserServiceBean {
+        public String getUser(@Header("id") String id, Exchange exchange) {
+            if ("1".equals(id)) {
+                return "{ \"name\": \"Osa Ora\", \"age\": 30 }";
+            } else if ("2".equals(id)) {
+                return "{ \"name\": \"Osama Oransa\", \"age\": 35 }";
+            } else {
+                exchange.getMessage().setHeader("CamelHttpResponseCode", 404);
+                return "{ \"error\": \"User not found\" }";
+            }
+        }
+    }
+}
+```
+In this example, we kpet the integration flow and removed the logic to a separate custom bean.
+
 ### Using Runtime Configurations
 If our integration needs some configurations, we can use either a configmap or a secret for that.
 So for example in our Database example, we are defining a secret for the MySQL datasource configurations:
