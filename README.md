@@ -200,6 +200,33 @@ So, once you finished the integration development and testing, you can then prop
 
 <img width="1016" alt="Screenshot 2023-05-24 at 15 28 52" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/8c951c52-8180-41d2-aa27-ba8e85b7f5d3">
 
+### Configure Modeling Parameters inside the Source file
+We can remove all the model parameters from teh command line into the source file to provide more efficient way to deal with them and persist them as one unit.
+For MySQL Rest route, instead of all the Kamel command line parameter we can modify the source file by adding some notations to the top of the file:
+
+```
+// camel-k: language=java
+// camel-k: dependency=mvn:io.quarkus:quarkus-jdbc-mysql dependency=camel-jdbc
+// camel-k: build-property=quarkus.datasource.camel.db-kind=mysql
+// camel-k: trait=prometheus.enabled=true
+// camel-k: config=secret:my-datasource
+
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.rest.RestBindingMode;
+
+public class AccountDataRoute extends RouteBuilder {
+ ...
+}
+```
+Now we can run the integration using: 
+```
+kamel run AccountDataRoute.java
+```
+But this will transfer to the following command:
+```
+Modeline options have been loaded from source files
+Full command: kamel run AccountDataRoute.java --dependency=mvn:io.quarkus:quarkus-jdbc-mysql --dependency=camel-jdbc --build-property=quarkus.datasource.camel.db-kind=mysql --trait=prometheus.enabled=true --config=secret:my-datasource 
+```
 
 ## Some Use Cases
 ***
