@@ -77,7 +77,7 @@ from("direct:getUserAccount")
     .convertBodyTo(String.class) // Convert the response body to a string
     .log("User account details: ${body}");
 ```
-We can also define custom bean for any custom logic in the processing:
+We can also define a custom bean for any custom logic in the route to keep the route simple:
 ```
 public class RestCustomBeanRoute extends RouteBuilder {
 
