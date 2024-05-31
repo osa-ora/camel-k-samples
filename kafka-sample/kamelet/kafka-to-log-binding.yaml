@@ -1,0 +1,22 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+ name: log-kafka-messages
+ namespace: kafka-project
+spec:
+ sink:
+   ref:
+     apiVersion: camel.apache.org/v1alpha1
+     name: log-sink
+     kind: Kamelet
+ source:
+   properties:
+     bootstrapServers: 'my-kafka-cluster-kafka-bootstrap:9092'
+     password: e
+     securityProtocol: PLAINTEXT
+     topic: test-topic
+     user: e
+   ref:
+     apiVersion: camel.apache.org/v1alpha1
+     name: kafka-source
+     kind: Kamelet
