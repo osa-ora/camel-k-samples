@@ -371,6 +371,48 @@ chmod +x kafka-setup-script.sh
 ```
 <img width="663" alt="Screenshot 2023-06-10 at 14 36 04" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/04701dbd-08e9-403f-a3fe-5695f5f2d85c">
 
+#### Using Kamelet and KameletBinding
+We can also use Kamelet as a simplified way to re-use existing pre-written integration, and provide our properties for that integration. Camel-K operator will install a pre-set of Kamelet for you so you can consume directly either as Source or Sink via creating KameletBinding with the required properties.
+
+<img width="761" alt="Screenshot 2024-05-31 at 12 14 34 PM" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/3ebb593f-1b29-476c-ae3c-805025eb2411">
+
+
+To create a consumer from Kafka similar to what we did in that demo, you can execute the following:
+```
+curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/kafka-sample/kamelet/kafka-to-log-binding.yaml --> kafka-log-binding.yaml
+oc apply -f kafka-log-binding.yaml
+```
+Camel-K operator will take this CameletBinding and create an Integraiton for you, which then create the required flow, if we examined this Binding:
+```
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+ name: log-kafka-messages
+ namespace: kafka-project
+spec:
+ sink:
+   ref:
+     apiVersion: camel.apache.org/v1alpha1
+     name: log-sink
+     kind: Kamelet
+ source:
+   properties:
+     bootstrapServers: 'my-kafka-cluster-kafka-bootstrap:9092'
+     password: e
+     securityProtocol: PLAINTEXT
+     topic: test-topic
+     user: e
+   ref:
+     apiVersion: camel.apache.org/v1alpha1
+     name: kafka-source
+     kind: Kamelet
+```
+You can see we have provided source and sink and then override the required parameters for our Kafka consumer.
+Note: our Kafka cluster doesn't have any authentication requirement, so we have added dummy user and password in that Binding.
+
+
+
+
 ## Design the Integrations
 ***
 You can use different tools or examples that are available already everywhere, you can use ChatGPT for example, or you can use KAOTO design tool to design the integration flow either as a standalone or part of Visual Studio Code by installing the plugin.
