@@ -382,7 +382,7 @@ To create a consumer from Kafka similar to what we did in that demo, you can exe
 curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/kafka-sample/kamelet/kafka-to-log-binding.yaml --> kafka-log-binding.yaml
 oc apply -f kafka-log-binding.yaml
 ```
-Camel-K operator will take this CameletBinding and create an Integraiton for you, which then create the required flow, if we examined this Binding:
+Camel-K operator will take this KameletBinding and create an Integraiton for you, which then create the required flow, if we examined this Binding:
 ```
 apiVersion: camel.apache.org/v1alpha1
 kind: KameletBinding
