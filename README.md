@@ -371,6 +371,37 @@ chmod +x kafka-setup-script.sh
 ```
 <img width="663" alt="Screenshot 2023-06-10 at 14 36 04" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/04701dbd-08e9-403f-a3fe-5695f5f2d85c">
 
+#### Using YAKS for Testing
+
+You can use YAKS for testing the integration, first you need to install the Yaks operator, then create the test cases as following:
+
+<img width="346" alt="Screenshot 2024-06-01 at 4 43 13 PM" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/1550a8cf-f656-49a0-8222-21a74fed1188">
+
+```
+curl https://raw.githubusercontent.com/osa-ora/camel-k-samples/main/kafka-sample/yaks/test.yaml > test.yaml
+oc apply -f test.yaml
+```
+The file contains 3 test scenarios that test the REST method response and the Kafka message content
+```
+      Scenario: Scenario 1
+        Given HTTP request body: No thing to send
+        When send GET /send/Hello-from-Osa-Ora
+        Then receive HTTP 200 OK
+
+      Scenario: Scenario 2
+        Given HTTP request body: No thing to send
+        When send GET /send/Hello-from-Osa-Ora
+        Then receive HTTP 200 OK
+        
+      Scenario: Scenario 3
+        Given HTTP request body: No thing to send
+        When send GET /send/Hello-from-Osa-Ora
+        Then receive HTTP 200 OK
+        And verify Kafka message with body: {"message":"Hello-from-Osa-Ora"}
+```
+Once executed, you can see the test scenario(s) results.
+
+
 #### Using Kamelet and KameletBinding
 We can also use Kamelet as a simplified way to re-use existing pre-written integration, and provide our properties for that integration. Camel-K operator will install a pre-set of Kamelet for you so you can consume directly either as Source or Sink via creating KameletBinding with the required properties.
 
