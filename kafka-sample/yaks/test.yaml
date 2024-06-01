@@ -1,0 +1,25 @@
+kind: Test
+apiVersion: yaks.citrusframework.org/v1alpha1
+metadata:
+  labels:
+    app: yaks
+  name: rest-kafka-testing
+  namespace: kafka-project
+spec:
+  source:
+    content: |-
+      Feature: test rest endpoint and kafka topic
+
+      Background:
+        Given URL: http://kafka-producer-kafka-project.apps.cluster-z898k.z898k.sandbox2103.opentlc.com
+        Given Kafka connection
+        | url   | my-kafka-cluster-kafka-bootstrap:9092 |
+        | topic | test-topic |
+
+      Scenario: Scenario 1
+        Given HTTP request body: No thing to send
+        When send GET /send/Hello-from-Osama-Oransa
+        Then receive HTTP 200 OK
+        And verify Kafka message with body: {"message":"Hello-from-Osama-Oransa"}
+    language: feature
+    name: example.feature
