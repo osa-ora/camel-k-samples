@@ -18,8 +18,19 @@ spec:
 
       Scenario: Scenario 1
         Given HTTP request body: No thing to send
-        When send GET /send/Hello-from-Osama-Oransa
+        When send GET /send/Hello-from-Osa-Ora
         Then receive HTTP 200 OK
-        And verify Kafka message with body: {"message":"Hello-from-Osama-Oransa"}
+
+      Scenario: Scenario 2
+        Given HTTP request body: No thing to send
+        When send GET /send/Hello-from-Osa-Ora
+        Then receive HTTP 200 OK
+        
+      Scenario: Scenario 3
+        Given HTTP request body: No thing to send
+        When send GET /send/Hello-from-Osa-Ora
+        Then receive HTTP 200 OK
+        And verify Kafka message with body: {"message":"Hello-from-Osa-Ora"}
+        
     language: feature
     name: example.feature
