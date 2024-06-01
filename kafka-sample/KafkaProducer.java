@@ -16,7 +16,7 @@ public class KafkaProducer extends RouteBuilder {
         // Define the route to retrieve user account details from the database
         from("direct:sendToKafka")
             .setHeader("Content-Type", constant("application/json"))
-            .setBody(simple("{'message':'${header.message}'}"))
+            .setBody(simple("{\"message\":\"${header.message}\"}"))
             .to("kafka:{{producer.topic}}")
             .log("Message correctly sent to the topic: ${body}");
     }
