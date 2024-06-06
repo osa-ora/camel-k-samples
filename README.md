@@ -446,7 +446,7 @@ Note: our Kafka cluster doesn't have any authentication requirement, so we have 
 
 ## Design the Integrations
 ***
-You can use different tools or examples that are available already everywhere, you can use ChatGPT for example, or you can use KAOTO design tool to design the integration flow either as a standalone or part of Visual Studio Code by installing the plugin.
+You can use different tools or examples that are available already everywhere, you can use ChatGPT for example, or you can use KAOTO design tool to design the integration flow either as a standalone, an Operator or part of Visual Studio Code by installing the plugin.
 
 <img width="1772" alt="Screenshot 2023-06-10 at 19 14 09" src="https://github.com/osa-ora/camel-k-samples/assets/18471537/bf142a5d-7634-4287-904d-f75296f2b95b">
 
