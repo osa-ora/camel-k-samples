@@ -1,0 +1,9 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemisAddress
+metadata:
+  name: transfer-address
+spec:
+  addressName: my-transfers-address
+  queueName: transfers
+  removeFromBrokerOnDelete: true
+  routingType: multicast
