@@ -37,9 +37,9 @@ oc label deployment/rest-to-mqtt-route app.kubernetes.io/part-of=my-amq-demo
 oc label statefulsets/my-amq-ss app.kubernetes.io/part-of=my-amq-demo
 
 #do some curl commands for testing
-curl $(oc get route rest-to-jms-route -o jsonpath='{.spec.host}')/send/Hello-from-osa-ora
-curl $(oc get route rest-to-jms-route -o jsonpath='{.spec.host}')/send/Hello-from-osa-ora2
-curl $(oc get route rest-to-jms-route -o jsonpath='{.spec.host}')/send/Hello-from-osa-ora3
+curl $(oc get route rest-to-mqtt-route -o jsonpath='{.spec.host}')/send/Hello-from-osa-ora
+curl $(oc get route rest-to-mqtt-route -o jsonpath='{.spec.host}')/send/Hello-from-osa-ora2
+curl $(oc get route rest-to-mqtt-route -o jsonpath='{.spec.host}')/send/Hello-from-osa-ora3
 
 kamel logs jms-to-log-route
 echo "Congratulations, we are done!"
