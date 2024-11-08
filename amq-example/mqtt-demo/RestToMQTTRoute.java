@@ -29,7 +29,7 @@ from("direct:sendJMS")
 from("direct:sendMQTT")
     .setBody(simple("{'message':'${header.message} - MQTT Message'}"))
     .log("Sending message to MQTT: ${body}")
-    .to("paho-mqtt5:{{mqtt.destinationName}}?brokerUrl={{mqtt.brokerUrl}}&qos=1&username=admin&password=adminPass")
+    .to("paho-mqtt5:{{mqtt.destinationName}}?brokerUrl={{mqtt.brokerUrl}}&qos=1&username={{mqtt.username}}&password={{mqtt.password}}&clientId={{mqtt.client.id}}")
     .log("Message successfully sent to MQTT")
     .setHeader("Content-Type", constant("application/json"))
     .log("Message details: ${body}");
