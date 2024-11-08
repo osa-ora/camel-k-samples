@@ -26,5 +26,5 @@ spec:
     managementRBACEnabled: true
     messageMigration: false
     persistenceEnabled: false
-    requireLogin: false
+    requireLogin: true
     size: 1
